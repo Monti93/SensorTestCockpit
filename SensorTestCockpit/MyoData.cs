@@ -15,15 +15,21 @@ namespace SensorTestCockpit
         public int countEmgSets { get; private set; }
         public double[] maxEmg { get; private set; }
         public double[] sumEmg { get; private set; }
+        private double[,] movingSums;
+        private int movingIndex;
+        private int movAvgCount;
 
-        public MyoData()
+        public MyoData(int movAvgCount)
         {
+            this.movAvgCount = movAvgCount;
             roll = 0;
             pitch = 0;
             yaw = 0;
             countEmgSets = 0;
             maxEmg = new double[8];
             sumEmg = new double[8];
+            movingSums = new double[movAvgCount,8];
+            movingIndex = 0;
         }
 
         public void Myo_OrientationDataAcquired(object sender, OrientationDataEventArgs e)
@@ -46,6 +52,20 @@ namespace SensorTestCockpit
             var data6 = Math.Abs(e.EmgData.GetDataForSensor(6));
             var data7 = Math.Abs(e.EmgData.GetDataForSensor(7));
 
+            movingSums[movingIndex,0] = data0;
+            movingSums[movingIndex, 1] = data1;
+            movingSums[movingIndex, 2] = data2;
+            movingSums[movingIndex, 3] = data3;
+            movingSums[movingIndex, 4] = data4;
+            movingSums[movingIndex, 5] = data5;
+            movingSums[movingIndex, 6] = data6;
+            movingSums[movingIndex, 7] = data7;
+            movingIndex++;
+            if (movingIndex >= movAvgCount)
+                movingIndex = 0;
+
+
+            /*
             sumEmg[0] += data0;
             sumEmg[1] += data1;
             sumEmg[2] += data2;
@@ -54,7 +74,7 @@ namespace SensorTestCockpit
             sumEmg[5] += data5;
             sumEmg[6] += data6;
             sumEmg[7] += data7;
-
+            */
             maxEmg[0] = data0 > maxEmg[0] ? data0 : maxEmg[0];
             maxEmg[1] = data1 > maxEmg[1] ? data1 : maxEmg[1];
             maxEmg[2] = data2 > maxEmg[2] ? data2 : maxEmg[2];
@@ -63,6 +83,16 @@ namespace SensorTestCockpit
             maxEmg[5] = data5 > maxEmg[5] ? data5 : maxEmg[5];
             maxEmg[6] = data6 > maxEmg[6] ? data6 : maxEmg[6];
             maxEmg[7] = data7 > maxEmg[7] ? data7 : maxEmg[7];
+        }
+
+        public double GetAverage(int idx)
+        {
+            double sum = 0;
+            for(int i=0; i<movAvgCount; ++i)
+            {
+                sum += movingSums[i,idx];
+            }
+            return sum / movAvgCount;
         }
 
         public void ClearIndexedData(int idx)
@@ -92,14 +122,14 @@ namespace SensorTestCockpit
                 maxEmg[5],
                 maxEmg[6],
                 maxEmg[7],
-                Math.Round(sumEmg[0] / countEmgSets, 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
-                Math.Round(sumEmg[1] / countEmgSets, 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
-                Math.Round(sumEmg[2] / countEmgSets, 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
-                Math.Round(sumEmg[3] / countEmgSets, 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
-                Math.Round(sumEmg[4] / countEmgSets, 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
-                Math.Round(sumEmg[5] / countEmgSets, 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
-                Math.Round(sumEmg[6] / countEmgSets, 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
-                Math.Round(sumEmg[7] / countEmgSets, 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US"))
+                Math.Round(GetAverage(0), 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
+                Math.Round(GetAverage(1), 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
+                Math.Round(GetAverage(2), 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
+                Math.Round(GetAverage(3), 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
+                Math.Round(GetAverage(4), 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
+                Math.Round(GetAverage(5), 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
+                Math.Round(GetAverage(6), 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US")),
+                Math.Round(GetAverage(7), 2).ToString(System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("en-US"))
                 );
 
             ClearCounter();

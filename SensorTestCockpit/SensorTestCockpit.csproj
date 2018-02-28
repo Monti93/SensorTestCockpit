@@ -33,31 +33,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CCT.NUI.Core">
-      <HintPath>..\..\..\..\Documents\Development\Kinect\CCT.NUI.Core.dll</HintPath>
+    <Reference Include="CCT.NUI.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Development\Kinect\CCT.NUI.Core.dll</HintPath>
     </Reference>
-    <Reference Include="CCT.NUI.HandTracking">
-      <HintPath>..\..\..\..\Documents\Development\Kinect\CCT.NUI.HandTracking.dll</HintPath>
+    <Reference Include="CCT.NUI.HandTracking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Development\Kinect\CCT.NUI.HandTracking.dll</HintPath>
     </Reference>
-    <Reference Include="CCT.NUI.KinectSDK">
-      <HintPath>..\..\..\..\Documents\Development\Kinect\CCT.NUI.KinectSDK.dll</HintPath>
+    <Reference Include="CCT.NUI.KinectSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Development\Kinect\CCT.NUI.KinectSDK.dll</HintPath>
     </Reference>
-    <Reference Include="CCT.NUI.Visual">
-      <HintPath>..\..\..\..\Documents\Development\Kinect\CCT.NUI.Visual.dll</HintPath>
+    <Reference Include="CCT.NUI.Visual, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Development\Kinect\CCT.NUI.Visual.dll</HintPath>
     </Reference>
-    <Reference Include="LeapCSharp.NET4.5">
-      <HintPath>..\..\..\..\Documents\Development\Leap Motion\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\LeapCSharp.NET4.5.dll</HintPath>
+    <Reference Include="LeapCSharp.NET4.5, Version=3.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Development\Leap Motion\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\LeapCSharp.NET4.5.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GestureDataTracker\GestureDataTracker\MyoSharp\MyoSharp\bin\Debug\Microsoft.Contracts.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\source\repos\GestureDataTracker\GestureDataTracker\MyoSharp\MyoSharp\bin\Debug\Microsoft.Contracts.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v1.8\Assemblies\Microsoft.Kinect.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v1.8\Assemblies\Microsoft.Kinect.dll</HintPath>
     </Reference>
-    <Reference Include="MyoSharp">
-      <HintPath>..\..\GestureDataTracker\GestureDataTracker\MyoSharp\MyoSharp\bin\Debug\MyoSharp.dll</HintPath>
+    <Reference Include="MyoSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\source\repos\GestureDataTracker\GestureDataTracker\MyoSharp\MyoSharp\bin\Debug\MyoSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

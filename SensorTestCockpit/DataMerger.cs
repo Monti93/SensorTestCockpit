@@ -16,11 +16,12 @@ namespace SensorTestCockpit
 {
     class DataMerger
     {
-        private const int BUFFER_LINES = 20;
-        private const int TIMER_INTERVAL = 500;
-        private const int COUNT_MAX = 4;
-        private const string FILENAME = "C://Users//D059415//Documents//Uni//Master//Studienarbeit//Versuche//Abtastgeschwindigkeit//Versuch 2 Geschwindigkeiten von 1000 bis 100ms//500ms_2.csv";
+        private const int BUFFER_LINES = 100;
+        private const int TIMER_INTERVAL = 50;
+        private const int COUNT_MAX = 5;
+        private const string FILENAME = "C://Users//D059415//Documents//Uni//Master//Studienarbeit//Versuche//Abtastgeschwindigkeit//Versuch 5 Moving Averages//50ms_15.csv";
         private const int TARGET_LINES = 100;
+        private const int MOV_AVG_COUNT = 50;
 
         private Form1 mainForm;
         private MyoData myoData;
@@ -37,7 +38,7 @@ namespace SensorTestCockpit
         public DataMerger(Form1 mainForm)
         {
             this.mainForm = mainForm;
-            myoData = new MyoData();
+            myoData = new MyoData(MOV_AVG_COUNT);
             leapData = new LeapData();
             kinectData = new KinectData(mainForm);
 
@@ -318,7 +319,10 @@ namespace SensorTestCockpit
 
             for(int i=0; i<8; ++i)
             {
-                FlushEmgIndex(40 + i * 30, i, e.Graphics);
+                DrawString(string.Format("(EMG {0}) --> Max Value: {1,3} | Average: {2,3}", i, myoData.maxEmg[i], Math.Round(myoData.GetAverage(i), 2)), 10, 40 + i * 30, e.Graphics);
+                myoData.GetAverage(i);
+                myoData.ClearIndexedData(i);
+                //FlushEmgIndex(40 + i * 30, i, e.Graphics);
             }
 
             myoData.ClearCounter();
